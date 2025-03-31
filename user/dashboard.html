@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Receita e Margem</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Font Awesome for Icons (optional, for sidebar/pie icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/pages/dashboardprincpal.css">
+</head>
+<body>
+    <div class="dashboard-container d-flex">
+        <!-- Optional Sidebar -->
+        <div class="sidebar d-flex flex-shrink-0 flex-column align-items-center py-3">
+            <i class="fas fa-chart-line mb-4"></i>
+            <i class="fas fa-balance-scale mb-4"></i>
+            <i class="fas fa-flask mb-4"></i>
+            <i class="fas fa-th mb-4"></i>
+            <i class="fas fa-search mb-4"></i>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow-1 p-3 p-md-4">
+            <!-- Header Row -->
+            <div class="row mb-4 align-items-center">
+                <div class="col-md-6">
+                    <h4 class="dashboard-title">Análise de Receita e Margem</h4>
+                </div>
+                <div class="col-md-6 d-flex justify-content-md-end flex-wrap gap-2">
+                     <select class="form-select form-select-sm filter-select" aria-label="Mês">
+                        <option selected>Mês: Todos</option>
+                        <!-- Add other months if needed -->
+                    </select>
+                    <select class="form-select form-select-sm filter-select" aria-label="Equipe Vendas">
+                        <option selected>Equipe Vendas: Todos</option>
+                        <!-- Add teams if needed -->
+                    </select>
+                     <select class="form-select form-select-sm filter-select" aria-label="Fornecedor">
+                        <option selected>Fornecedor: Todos</option>
+                        <!-- Add suppliers if needed -->
+                    </select>
+                    <div class="logo ms-md-3 align-self-center text-end">
+                        <small>LUCAS MOREIRA</small><br>
+                        <small class="logo-subtitle">Desenvolvedor</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Cards Row -->
+            <div class="row g-4 mb-4">
+                <!-- Receita Operacional Card -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 shadow-sm data-card blueblue">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="card-subtitle mb-2 text-light">Receita Operacional</h6>
+                                    <h3 class="card-title mb-1">R$9.681.527</h3>
+                                    <p class="card-text small-text">Melhor mês: novembro</p>
+                                    <p class="card-text small-text">R$1.189.150</p>
+                                </div>
+                                <i class="fas fa-chart-bar card-icon"></i>
+                            </div>
+                            <div class="chart-container mt-3">
+                                <canvas id="receitaChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Margem de Contribuição Card -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 shadow-sm data-card greengreen">
+                        <div class="card-body">
+                             <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="card-subtitle mb-2 text-light">Margem de Contribuição</h6>
+                                    <h3 class="card-title mb-1">R$2.061.909</h3>
+                                     <p class="card-text small-text">Melhor mês: novembro</p>
+                                     <p class="card-text small-text">R$255.943</p>
+                                </div>
+                               <i class="fas fa-chart-pie card-icon-small"></i> <!-- Pie chart icon -->
+                            </div>
+                            <div class="chart-container mt-3">
+                                <canvas id="margemChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- % MC Geral Card -->
+                <div class="col-lg-4 col-md-12">
+                    <div class="card h-100 shadow-sm data-card yellowyellow">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="card-subtitle mb-2 text-light">% MC Geral</h6>
+                                    <h1 class="card-title mb-1 display-4">21%</h1>
+                                    <p class="card-text small-text">Melhor mês: janeiro</p>
+                                    <p class="card-text small-text">22%</p>
+                                </div>
+                                <span class="percent-icon display-1">%</span>
+                            </div>
+                             <div class="chart-container mt-2">
+                                <canvas id="mcPercentChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="row g-4">
+                <!-- Fornecedor Table Card -->
+                <div class="col-lg-7">
+                    <div class="card h-100 shadow-sm data-card card-table">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-3 text-light">Fornecedor</h6>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-borderless table-sm align-middle custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fornecedor</th>
+                                            <th class="text-end">Receita Operacional</th>
+                                            <th class="text-end">Margem Contribuição</th>
+                                            <th class="text-end">% MC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="fas fa-store-alt table-icon"></i> Moinho Dois Irmãos</td>
+                                            <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 100%; background-color: #0d6efd;"></div>
+                                                    R$5.124.316
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                     <div class="mini-bar me-2" style="width: 80%; background-color: #198754;"></div>
+                                                    R$869.986
+                                                </div>
+                                            </td>
+                                            <td class="text-end"><span class="badge bg-mc-17">17%</span></td>
+                                        </tr>
+                                         <tr>
+                                            <td><i class="fas fa-store-alt table-icon"></i> Santa Rosa Alimentos</td>
+                                            <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 45%; background-color: #0d6efd;"></div>
+                                                    R$2.344.964
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                 <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 50%; background-color: #198754;"></div>
+                                                    R$548.185
+                                                </div>
+                                            </td>
+                                            <td class="text-end"><span class="badge bg-mc-23">23%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fas fa-store-alt table-icon"></i> Kappa Bebidas</td>
+                                            <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 17%; background-color: #0d6efd;"></div>
+                                                    R$878.548
+                                                </div>
+                                            </td>
+                                             <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                     <div class="mini-bar me-2" style="width: 30%; background-color: #198754;"></div>
+                                                    R$319.229
+                                                </div>
+                                            </td>
+                                            <td class="text-end"><span class="badge bg-mc-36">36%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fas fa-store-alt table-icon"></i> King Coffee</td>
+                                            <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 16%; background-color: #0d6efd;"></div>
+                                                    R$857.316
+                                                </div>
+                                            </td>
+                                             <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 18%; background-color: #198754;"></div>
+                                                    R$192.915
+                                                </div>
+                                            </td>
+                                            <td class="text-end"><span class="badge bg-mc-23">23%</span></td>
+                                        </tr>
+                                         <tr>
+                                            <td><i class="fas fa-store-alt table-icon"></i> Atacado Doces</td>
+                                            <td class="text-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 9%; background-color: #0d6efd;"></div>
+                                                    R$476.384
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                 <div class="d-flex justify-content-end align-items-center">
+                                                    <div class="mini-bar me-2" style="width: 12%; background-color: #198754;"></div>
+                                                     R$131.594
+                                                </div>
+                                            </td>
+                                            <td class="text-end"><span class="badge bg-mc-28">28%</span></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="table-total">
+                                            <td><strong>Total</strong></td>
+                                            <td class="text-end"><strong>R$9.681.527</strong></td>
+                                            <td class="text-end"><strong>R$2.061.909</strong></td>
+                                            <td class="text-end"><strong>21%</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receita por Equipe/Linha Card -->
+                <div class="col-lg-5">
+                    <div class="card h-100 shadow-sm data-card card-chart">
+                        <div class="card-body d-flex flex-column">
+                             <h6 class="card-subtitle mb-2 text-light">Receita Operacional por Equipe Vendas e Linha Produto</h6>
+                             <div class="chart-legend mb-3 align-self-center">
+                                 <span class="legend-item"><span class="legend-color" style="background-color: #0d6efd;"></span> Alimentos</span>
+                                 <span class="legend-item ms-3"><span class="legend-color" style="background-color: #0dcaf0;"></span> Bebidas</span>
+                             </div>
+                             <div class="chart-container flex-grow-1">
+                                <canvas id="equipeLinhaChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Bottom Row -->
+
+        </div> <!-- End Main Content -->
+    </div> <!-- End Dashboard Container -->
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

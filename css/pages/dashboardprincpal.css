@@ -1,0 +1,271 @@
+/* --- Base Styles & Variables --- */
+:root {
+    --primary-bg: #1a1f36; /* Deep blue */
+    --card-bg: #2a2f4d; /* Slightly lighter blue/purple */
+    --text-color: #e0e0e0;
+    --text-light: #b0b0b0;
+    --accent-blue: #0d6efd;
+    --accent-green: #198754; /* Bootstrap success green */
+    --accent-cyan: #0dcaf0; /* Bootstrap info cyan */
+    --accent-purple: #6f42c1; /* Bootstrap purple */
+    --accent-pink: #d63384; /* Bootstrap pink */
+
+    /* Specific Card BG Colors */
+    --card-blue-bg: #2a3f6f;
+    --card-green-bg: #2a6f4f;
+    --card-purple-bg: #4d2f6f;
+
+     /* Table MC % Badge colors */
+    --mc-color-17: #e86161; /* Adjust as needed */
+    --mc-color-23: #e8a061;
+    --mc-color-36: #61e87a;
+    --mc-color-28: #61cde8;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9rem;
+}
+
+/* --- Layout --- */
+.dashboard-container {
+    min-height: 100vh;
+}
+
+.sidebar {
+    background-color: var(--card-bg);
+    color: var(--text-light);
+    width: 60px; /* Fixed width */
+}
+
+.sidebar i {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.sidebar i:hover {
+    color: white;
+}
+
+.main-content {
+    background-color: var(--primary-bg);
+}
+
+/* --- Header --- */
+.dashboard-title {
+    color: white;
+    font-weight: 600;
+}
+
+.filter-select {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid #444;
+    font-size: 0.8rem;
+    max-width: 180px; /* Adjust as needed */
+}
+.filter-select:focus {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--accent-blue);
+    box-shadow: none;
+}
+/* Style dropdown arrow for dark mode */
+.filter-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cccccc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+
+.logo {
+    color: var(--text-light);
+    line-height: 1.2;
+}
+.logo-subtitle {
+     font-size: 0.7rem;
+     color: var(--accent-blue);
+     font-weight: bold;
+}
+
+
+/* --- Cards --- */
+.data-card {
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+.card-blue { background-color: var(--card-blue-bg); }
+.card-green { background-color: var(--card-green-bg); }
+.card-purple { background-color: var(--card-purple-bg); }
+.card-table { background-color: var(--card-bg); } /* Default for table */
+.card-chart { background-color: var(--card-bg); } /* Default for chart */
+
+
+.card-title {
+    color: white;
+    font-weight: bold;
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.small-text {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+    color: var(--text-light);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.15);
+}
+.card-icon-small {
+    font-size: 1.5rem;
+     color: rgba(255, 255, 255, 0.25);
+}
+
+.percent-icon {
+     color: rgba(255, 255, 255, 0.1);
+     font-weight: bold;
+     line-height: 1;
+}
+
+/* --- Charts --- */
+.chart-container {
+    position: relative;
+    height: 100px; /* Default height, adjust as needed */
+}
+
+/* Specific heights */
+#receitaChart, #margemChart, #mcPercentChart {
+    height: 80px !important; /* Reduced height for top cards */
+}
+
+#equipeLinhaChart {
+    height: 250px !important; /* Taller for bar chart */
+}
+
+.chart-legend .legend-item {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.chart-legend .legend-color {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+
+/* --- Table --- */
+.custom-table {
+    font-size: 0.85rem;
+    margin-bottom: 0; /* Remove default bottom margin */
+}
+
+.custom-table th {
+    color: var(--text-light);
+    font-weight: 500;
+    border: none !important;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.custom-table td {
+    border-color: #444 !important; /* Slightly visible border */
+    vertical-align: middle;
+     padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Remove border for first column and header */
+.custom-table th:first-child,
+.custom-table td:first-child {
+    border-left: none !important;
+}
+.custom-table th:last-child,
+.custom-table td:last-child {
+    border-right: none !important;
+}
+/* First row no top border */
+.custom-table thead th {
+    border-top: none !important;
+}
+/* Last row no bottom border (handled by tfoot) */
+.custom-table tbody tr:last-child td {
+     border-bottom: none !important;
+}
+
+
+.table-icon {
+    color: var(--text-light);
+    margin-right: 8px;
+    width: 1em; /* Ensure alignment */
+}
+
+.mini-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--accent-blue); /* Default color */
+    display: inline-block; /* Allows alignment */
+    min-width: 5px; /* Ensure very small values are visible */
+}
+
+.table-total {
+    border-top: 2px solid #555 !important; /* Separator line */
+}
+.table-total td {   
+    color: white;
+}
+
+.greengreen{
+    background: rgb(63,237,151);
+    background: linear-gradient(90deg, rgba(63,237,151,1) 15%, rgba(10,75,164,0.6082808123249299) 100%);
+}
+.blueblue{
+
+    background: rgb(35, 54, 158);
+    background: linear-gradient(90deg, rgb(63, 75, 237) 15%, rgba(10,75,164,0.6082808123249299) 100%);
+}
+.yellowyellow{
+
+    background: rgb(250, 234, 15);
+    background: linear-gradient(90deg, rgb(231, 228, 30, 0.9) 2%, rgba(25,10,164,0) 95%);
+}
+
+/* Table Badge Colors */
+.badge {
+    padding: 0.3em 0.5em;
+    font-size: 0.8em;
+    font-weight: bold;
+    width: 40px; /* Fixed width for alignment */
+    text-align: center;
+}
+.bg-mc-17 { background-color: var(--mc-color-17); color: #fff; }
+.bg-mc-23 { background-color: var(--mc-color-23); color: #333; } /* Darker text for lighter bg */
+.bg-mc-36 { background-color: var(--mc-color-36); color: #333; }
+.bg-mc-28 { background-color: var(--mc-color-28); color: #333; }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 767.98px) {
+    .chart-container {
+        height: 120px; /* Slightly taller on mobile */
+    }
+     #equipeLinhaChart {
+        height: 200px !important;
+    }
+    .filter-select {
+        max-width: none; /* Allow full width */
+        width: 48%; /* Fit two per row roughly */
+    }
+    .logo { text-align: left; margin-top: 10px;}
+}

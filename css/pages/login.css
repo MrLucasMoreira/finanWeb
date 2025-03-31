@@ -1,0 +1,47 @@
+/* Container da tela de login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card de login */
+.login-card {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(58, 175, 133, 0.4);
+    text-align: center;
+    max-width: 350px;
+}
+
+/* Logo */
+.logo {
+    width: 6dvw;
+    margin-bottom: 15px;
+    filter: drop-shadow(0px 0px 10px rgba(58, 175, 133, 0.8));
+}
+
+
+/* Responsividade */
+
+/* Telas pequenas (celulares, até 576px) */
+@media (max-width: 576px) {
+
+}
+
+/* Telas médias (tablets, até 768px) */
+@media (max-width: 768px) {
+
+}
+
+/* Telas grandes (desktops, até 992px) */
+@media (max-width: 992px) {
+
+}
+
+/* Telas muito grandes (monitores grandes, acima de 1200px) */
+@media (min-width: 1200px) {
+ 
+}

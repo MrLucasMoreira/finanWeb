@@ -1,0 +1,40 @@
+/* Cor do placeholder */
+.form-control::placeholder {
+    color: #a0a0a0;
+    opacity: 1;
+}
+
+/* Link "Esqueci minha senha" */
+.link-custom {
+    color: #3aaf85;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-custom:hover {
+    color: #2f8f6d;
+}
+
+
+
+/* Responsividade */
+
+/* Telas pequenas (celulares, até 576px) */
+@media (max-width: 576px) {
+
+}
+
+/* Telas médias (tablets, até 768px) */
+@media (max-width: 768px) {
+
+}
+
+/* Telas grandes (desktops, até 992px) */
+@media (max-width: 992px) {
+
+}
+
+/* Telas muito grandes (monitores grandes, acima de 1200px) */
+@media (min-width: 1200px) {
+ 
+}

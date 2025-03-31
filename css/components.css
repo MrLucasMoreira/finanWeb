@@ -1,0 +1,56 @@
+/* Botão personalizado */
+.btn-custom {
+    background-color: #3aaf85;
+    color: #121212;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background-color: #2f8f6d;
+}
+
+/* Inputs */
+.form-control {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border: 1px solid #3aaf85;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #2f8f6d;
+    box-shadow: 0px 0px 8px rgba(58, 175, 133, 0.6);
+}
+
+.fwIndex{
+    width: 10dvw; 
+}
+
+
+/* Responsividade */
+
+/* Telas pequenas (celulares, até 576px) */
+@media (max-width: 576px) {
+    .fwIndex{
+        width: 20dvw; 
+    }
+    
+}
+
+/* Telas médias (tablets, até 768px) */
+@media (max-width: 768px) {
+
+}
+
+/* Telas grandes (desktops, até 992px) */
+@media (max-width: 992px) {
+
+}
+
+/* Telas muito grandes (monitores grandes, acima de 1200px) */
+@media (min-width: 1200px) {
+ 
+}
