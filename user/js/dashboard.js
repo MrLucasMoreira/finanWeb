@@ -1,3 +1,21 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDUqfNb5rOHCKRlSArZyO_d9bnF8qp7Nn0",
+  authDomain: "finanweb-4e03b.firebaseapp.com",
+  projectId: "finanweb-4e03b",
+  storageBucket: "finanweb-4e03b.firebasestorage.app",
+  messagingSenderId: "389281644402",
+  appId: "1:389281644402:web:86f8144c7c0b99661627eb"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 document.addEventListener('DOMContentLoaded', function () {
     const CHART_MONTHS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
 
@@ -185,3 +203,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+

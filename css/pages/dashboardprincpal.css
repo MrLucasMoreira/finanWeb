@@ -238,8 +238,8 @@ body {
 }
 .yellowyellow{
 
-    background: rgb(250, 234, 15);
-    background: linear-gradient(90deg, rgb(231, 228, 30, 0.9) 2%, rgba(25,10,164,0) 95%);
+    background: rgb(236, 41, 41);
+    background: linear-gradient(90deg, rgba(223, 43, 43, 0.9) 2%, rgba(25,10,164,0) 95%);
 }
 
 /* Table Badge Colors */
