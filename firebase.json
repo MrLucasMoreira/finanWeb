@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "public": ".", // <-- MUITO IMPORTANTE: Mude isso para o nome da pasta onde estão os arquivos do seu site após o build (ex: 'public', 'dist', 'build')
+    "ignore": [
+      "firebase.json",
+      "**/.*", // Ignora arquivos ocultos (como .git)
+      "**/node_modules/**" // Ignora a pasta node_modules
+    ],
+    "rewrites": [
+      {
+        "source": "**", // Para qualquer URL que não seja um arquivo existente...
+        "destination": "/index.html" // ...sirva o index.html (Essencial para Single Page Apps - React, Vue, Angular)
+      }
+    ]
+  }
+  // Nenhuma outra seção (como 'firestore', 'functions', 'dataconnect') é estritamente necessária
+  // se você não estiver implantando essas coisas a partir deste diretório.
+}

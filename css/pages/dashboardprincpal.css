@@ -1,14 +1,14 @@
 /* --- Base Styles & Variables --- */
 :root {
-    --primary-bg: #1a1f36; /* Deep blue */
-    --card-bg: #2a2f4d; /* Slightly lighter blue/purple */
+    --primary-bg: #1a1f36;
+    --card-bg: #2a2f4d;
     --text-color: #e0e0e0;
     --text-light: #b0b0b0;
     --accent-blue: #0d6efd;
-    --accent-green: #198754; /* Bootstrap success green */
-    --accent-cyan: #0dcaf0; /* Bootstrap info cyan */
-    --accent-purple: #6f42c1; /* Bootstrap purple */
-    --accent-pink: #d63384; /* Bootstrap pink */
+    --accent-green: #198754;
+    --accent-cyan: #0dcaf0;
+    --accent-purple: #6f42c1;
+    --accent-pink: #d63384;
 
     /* Specific Card BG Colors */
     --card-blue-bg: #2a3f6f;
@@ -16,7 +16,7 @@
     --card-purple-bg: #4d2f6f;
 
      /* Table MC % Badge colors */
-    --mc-color-17: #e86161; /* Adjust as needed */
+    --mc-color-17: #e86161;
     --mc-color-23: #e8a061;
     --mc-color-36: #61e87a;
     --mc-color-28: #61cde8;
@@ -223,7 +223,7 @@ body {
 .table-total {
     border-top: 2px solid #555 !important; /* Separator line */
 }
-.table-total td {   
+.table-total td {
     color: white;
 }
 

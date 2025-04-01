@@ -1,206 +1,81 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDUqfNb5rOHCKRlSArZyO_d9bnF8qp7Nn0",
-  authDomain: "finanweb-4e03b.firebaseapp.com",
-  projectId: "finanweb-4e03b",
-  storageBucket: "finanweb-4e03b.firebasestorage.app",
-  messagingSenderId: "389281644402",
-  appId: "1:389281644402:web:86f8144c7c0b99661627eb"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-document.addEventListener('DOMContentLoaded', function () {
-    const CHART_MONTHS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-
-    const commonChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false // Hide legend by default
-            },
-            tooltip: {
-                enabled: true // Enable tooltips
-            }
-        },
-        scales: {
-            x: {
-                display: true, // Show x-axis labels
-                grid: {
-                    display: false // Hide vertical grid lines
-                },
-                ticks: {
-                    color: '#a0a0a0', // Light grey ticks
-                    font: { size: 10 }
-                },
-                border: {
-                    display: false
-                }
-            },
-            y: {
-                display: false, // Hide y-axis completely
-                beginAtZero: true
-            }
-        },
-        elements: {
-            line: {
-                tension: 0.4 // Makes lines curved
-            },
-            point: {
-                radius: 0 // Hide points on the line
-            }
+async function buscarCustos() {
+    try {
+        const response = await fetch('/custos');
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`);
         }
-    };
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Erro ao buscar custos:", error);
+        return []; // Retorna um array vazio em caso de erro
+    }
+}
 
-    // --- 1. Receita Operacional Chart (Area Chart) ---
-    const receitaCtx = document.getElementById('receitaChart').getContext('2d');
-    // Create gradient
-    const receitaGradient = receitaCtx.createLinearGradient(0, 0, 0, 80); // x0, y0, x1, y1
-    receitaGradient.addColorStop(0, 'rgba(13, 110, 253, 0.6)'); // Start color (accent-blue)
-    receitaGradient.addColorStop(1, 'rgba(13, 110, 253, 0.05)'); // End color (transparent)
+function atualizarTabelaCustos(custos) {
+    const tbody = document.querySelector('#tabelaCustos tbody');
+    tbody.innerHTML = '';
 
-    new Chart(receitaCtx, {
-        type: 'line', // Use 'line' type with fill enabled
-        data: {
-            labels: CHART_MONTHS,
-            datasets: [{
-                label: 'Receita Operacional',
-                data: [50, 60, 80, 75, 90, 85, 95, 100, 98, 110, 120, 115], // Sample data
-                borderColor: 'rgba(13, 110, 253, 1)', // accent-blue
-                borderWidth: 2,
-                fill: true, // Enable fill
-                backgroundColor: receitaGradient // Apply gradient
-            }]
-        },
-        options: commonChartOptions
-    });
+    for (const key in custos) { // Itera sobre as chaves do objeto
+        const custo = custos[key];
+        if (custo) {
+            const row = tbody.insertRow();
+            const descricaoCell = row.insertCell();
+            const valorCell = row.insertCell();
 
-    // --- 2. Margem de Contribuição Chart (Area Chart) ---
-    const margemCtx = document.getElementById('margemChart').getContext('2d');
-    // Create gradient
-    const margemGradient = margemCtx.createLinearGradient(0, 0, 0, 80);
-    margemGradient.addColorStop(0, 'rgba(25, 135, 84, 0.6)'); // Start color (accent-green)
-    margemGradient.addColorStop(1, 'rgba(25, 135, 84, 0.05)'); // End color
-
-    new Chart(margemCtx, {
-        type: 'line',
-        data: {
-            labels: CHART_MONTHS,
-            datasets: [{
-                label: 'Margem Contribuição',
-                data: [15, 18, 22, 20, 25, 23, 28, 30, 29, 33, 35, 34], // Sample data
-                borderColor: 'rgba(25, 135, 84, 1)', // accent-green
-                borderWidth: 2,
-                fill: true,
-                backgroundColor: margemGradient
-            }]
-        },
-        options: commonChartOptions
-    });
-
-    // --- 3. % MC Geral Chart (Area Chart) ---
-    const mcPercentCtx = document.getElementById('mcPercentChart').getContext('2d');
-     // Create gradient
-    const mcGradient = mcPercentCtx.createLinearGradient(0, 0, 0, 80);
-    mcGradient.addColorStop(0, 'rgba(214, 51, 132, 0.6)'); // Start color (accent-pink)
-    mcGradient.addColorStop(1, 'rgba(214, 51, 132, 0.05)'); // End color
-
-    new Chart(mcPercentCtx, {
-        type: 'line',
-        data: {
-            labels: CHART_MONTHS,
-            datasets: [{
-                label: '% MC Geral',
-                data: [22, 21, 20, 21.5, 20.5, 19, 20, 19.5, 21, 20, 21, 20.5], // Sample data %
-                borderColor: 'rgba(214, 51, 132, 1)', // accent-pink
-                borderWidth: 2,
-                fill: true,
-                backgroundColor: mcGradient
-            }]
-        },
-        options: commonChartOptions
-    });
-
-     // --- 4. Receita por Equipe Vendas e Linha Produto (Grouped Bar Chart) ---
-    const equipeLinhaCtx = document.getElementById('equipeLinhaChart').getContext('2d');
-    new Chart(equipeLinhaCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Varejo', 'Distribuidoras', 'Online'], // Categories (Sales Teams/Channels)
-            datasets: [
-                {
-                    label: 'Alimentos',
-                    data: [3.9, 3.0, 2.0], // Sample data in Millions
-                    backgroundColor: 'rgba(13, 110, 253, 0.8)', // accent-blue slightly transparent
-                    borderColor: 'rgba(13, 110, 253, 1)',
-                    borderWidth: 1
-                },
-                 {
-                    label: 'Bebidas',
-                    data: [0.6, 0.4, 0], // Sample data in Millions (Online has no Bebidas bar)
-                    backgroundColor: 'rgba(13, 202, 240, 0.8)', // accent-cyan slightly transparent
-                    borderColor: 'rgba(13, 202, 240, 1)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            indexAxis: 'y', // Make it horizontal
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                   display: false // We created a custom HTML legend
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.parsed.x !== null) {
-                                // Format as R$ X.Y Mi
-                                label += 'R$' + context.parsed.x.toFixed(1) + ' Mi';
-                            }
-                            return label;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    display: true, // Show value axis
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)', // Lighter grid lines
-                         drawBorder: false,
-                    },
-                     ticks: {
-                        color: '#a0a0a0',
-                        callback: function(value, index, values) {
-                             return 'R$' + value + ' Mi'; // Add Mi suffix
-                        }
-                    }
-                },
-                y: {
-                    display: true, // Show category axis
-                    grid: {
-                        display: false // Hide category grid lines
-                    },
-                     ticks: {
-                        color: '#e0e0e0' // Main text color
-                    }
-                }
-            }
+            descricaoCell.textContent = custo.descricao || "";
+            valorCell.textContent = custo.valor || "";
         }
-    });
+    }
+}
 
+
+function calcularTotalReceita(custos) {
+    let total = 0;
+    for (const key in custos) {
+        if (custos[key]) {
+            total += parseFloat(custos[key].receita) || 0; // Suponha que 'receita' seja o campo
+        }
+    }
+    return total;
+}
+
+function atualizarTotalReceita(total) {
+    document.getElementById('totalReceita').textContent = `R$${total.toFixed(2)}`;
+}
+function atualizarPorcentagemMC(custos) {
+  let totalReceita = 0;
+  let totalCustos = 0;
+
+  for (const key in custos) {
+    if (custos[key]) {
+      totalReceita += parseFloat(custos[key].receita) || 0; // Assumindo um campo 'receita'
+      totalCustos += parseFloat(custos[key].custo) || 0;   // Assumindo um campo 'custo'
+    }
+  }
+
+  // Calcula a %MC (Margem de Contribuição)
+  let porcentagemMC = 0;
+  if (totalReceita > 0) {
+    porcentagemMC = ((totalReceita - totalCustos) / totalReceita) * 100;
+  }
+
+  // Atualiza o elemento HTML com a %MC calculada
+  const porcentagemMCElement = document.getElementById('porcentagemMC');
+  if (porcentagemMCElement) {
+    porcentagemMCElement.textContent = porcentagemMC.toFixed(0) + '%'; // Formata para 0 casas decimais
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const custos = await buscarCustos();
+
+    if (custos) {
+        atualizarTabelaCustos(custos);
+
+        // Calcula e exibe o total da receita
+        const totalReceita = calcularTotalReceita(custos);
+        atualizarTotalReceita(totalReceita);
+        atualizarPorcentagemMC(custos);
+    }
 });
-
