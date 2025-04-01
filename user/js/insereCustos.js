@@ -30,7 +30,7 @@ function calcularTotal() {
         const valorInput = row.querySelector('input[type="number"]');
         if (valorInput && valorInput.value) {// insereCustos.js
 
-            const API_URL = "https://serverfinanweb.onrender.comf/custos"; // Ajuste conforme necessário
+            const API_URL = "https://serverfinanweb.onrender.com/custos"; // Ajuste conforme necessário
             
             async function carregarCustos() {
                 try {
