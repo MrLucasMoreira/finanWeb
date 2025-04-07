@@ -1,6 +1,6 @@
 async function buscarCustos() {
     try {
-        const response = await fetch('https://serverfinanweb.onrender.com/custos');
+        const response = await fetch('https://serverfinanweb.onrender.com/api');
         if (!response.ok) {
             throw new Error(`Erro na requisição: ${response.status}`);
         }
